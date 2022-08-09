@@ -1,0 +1,739 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+<meta name="HandheldFriendly" content="True" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+<meta name="generator" content="Hugo 0.98.0" />
+
+
+<link rel="shortcut icon" href="/sys/favicon.ico" />
+
+
+
+<title>Установка Arch Linux на нетбуки и планшеты с 32 битным загрузчиком - CoderLog</title>
+
+
+<meta name="author" content="Alex Borsch" />
+
+
+<meta name="description" content="Эта статья будет полезна все обладателям устройств на процессоре INTEL Bay[Cherry]Trail с 32 битным загрузчиком. В основном это смартбуки Prestigio, Chuwi и другие. В этих устройствах спецефическое железо и при установке Linux часто возникают трудности в работе некоторых из них. Здесь собран подробный мануал по установке и настройке Arch Linux" />
+
+
+<meta name="keywords" content="linux, arch linux, uefi, intel atom, установка arch linux, PSB116A03" />
+
+
+<meta property="og:title" content="Установка Arch Linux на нетбуки и планшеты с 32 битным загрузчиком" />
+<meta name="twitter:title" content="Установка Arch Linux на нетбуки и планшеты с 32 битным загрузчиком" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="/posts/ustanovka-arch-linux-na-ustroistva-s-uefi32-bit/" /><meta property="og:description" content="Эта статья будет полезна все обладателям устройств на процессоре INTEL Bay[Cherry]Trail с 32 битным загрузчиком. В основном это смартбуки Prestigio, Chuwi и другие. В этих устройствах спецефическое железо и при установке Linux часто возникают трудности в работе некоторых из них. Здесь собран подробный мануал по установке и настройке Arch Linux" />
+<meta name="twitter:description" content="Эта статья будет полезна все обладателям устройств на процессоре INTEL Bay[Cherry]Trail с 32 битным загрузчиком. В основном это смартбуки Prestigio, Chuwi и другие. В этих устройствах спецефическое железо и при установке Linux часто возникают трудности в работе некоторых из них. Здесь собран подробный мануал по установке и настройке Arch Linux" /><meta property="og:image" content="https://coderlog.top/img/ustanovka-arch-linux-na-ustroistva-s-uefi32-bit.webp" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:image" content="/img/ustanovka-arch-linux-na-ustroistva-s-uefi32-bit.webp" /><meta property="article:published_time" content="2021-05-04T21:32:17+03:00" /><meta property="article:modified_time" content="2021-05-04T21:32:17+03:00" />
+
+
+<style>
+    @media (prefers-color-scheme: dark) {
+        body[data-theme='auto'] img {
+            filter: brightness(60%);
+        }
+    }
+
+    body[data-theme='dark'] img {
+        filter: brightness(60%);
+    }
+    
+</style>
+
+<style>
+    .post-card-image{
+        width:100%;
+        height:200px;
+        background:#c5d2d9 no-repeat 50%;
+        -o-object-fit:cover;
+        object-fit:cover;
+        opacity: .9;
+        }
+    .post-img{
+        vertical-align: middle;
+        border-style: none;
+    }
+</style>
+
+
+<link rel="stylesheet" href="/assets/css/fuji.min.css" />
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.2/css/all.css" integrity="sha384-vSIIfh2YWi9wW0r9iZe7RJPrKwp6bG+s9QZMoITbCckVJqGCCRhc+ccxNcdpHuYu" crossorigin="anonymous">
+<link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@300&amp;display=swap" rel="stylesheet">
+
+<script async data-ad-client="ca-pub-4204889323174810" src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+
+
+
+
+
+<script>
+    window.dataLayer = window.dataLayer || [];
+
+    function gtag() {
+        dataLayer.push(arguments);
+    }
+    gtag('js', new Date());
+    gtag('config', 'UA-148726147-1');
+</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-148726147-1"></script>
+
+
+
+</head>
+
+<body data-theme="auto">
+<style>
+    body{
+        font-family: 'Comfortaa', cursive;
+    }
+</style>
+    <script data-cfasync="false">
+  
+  var fujiThemeData = localStorage.getItem('fuji_data-theme');
+  
+  if (!fujiThemeData) {
+    localStorage.setItem('fuji_data-theme', 'auto');
+  } else {
+    
+    if (fujiThemeData !== 'auto') {
+      document.body.setAttribute('data-theme', fujiThemeData === 'dark' ? 'dark' : 'light');
+    }
+  }
+</script>
+    <header>
+    <div class="container-lg clearfix">
+        <div class="col-12 header">
+            <a href="/">
+                
+                    <img class="site-logo" src="/sys/coderlog.png" alt="CoderLog" />
+                
+            </a>
+        </div>
+
+    </div>
+</header>
+
+    <main>
+        <div class="container-lg clearfix">
+            
+            <div class="col-12 col-md-9 float-left content">
+                
+<article>
+    
+    <h1 class="post-item post-title">
+        <a href="/posts/ustanovka-arch-linux-na-ustroistva-s-uefi32-bit/">Установка Arch Linux на нетбуки и планшеты с 32 битным загрузчиком</a>
+    </h1>
+    <div class="post-item post-meta">
+        <span><i class="iconfont icon-today-sharp"></i>&nbsp;2021-05-04</span>
+
+
+<span>
+    <i class="iconfont icon-pricetags-sharp"></i>&nbsp;<a href="/tags/linux">linux</a>&nbsp;<a href="/tags/arch-linux">arch linux</a>&nbsp;<a href="/tags/uefi">uefi</a>&nbsp;<a href="/tags/intel-atom">intel atom</a>&nbsp;<a href="/tags/%D1%83%D1%81%D1%82%D0%B0%D0%BD%D0%BE%D0%B2%D0%BA%D0%B0-arch-linux">установка arch linux</a>&nbsp;<a href="/tags/psb116a03">PSB116A03</a>&nbsp;
+</span>
+
+    </div>
+    
+    <div class="post-content markdown-body">
+        
+            <img class="post-img" src="/img/ustanovka-arch-linux-na-ustroistva-s-uefi32-bit.webp" alt="Установка Arch Linux на нетбуки и планшеты с 32 битным загрузчиком"/>
+            
+        <h2 id="вступление">Вступление</h2>
+<p>Не так давно рынок ноутбуков и планшетов наполнили не совсем качественными но очень дешёвыми устройствами в бюджете до 200$. В основном это смартбуки Prestigio, Chuwi и другие. Из коробки на них установлена операционная система Windows 10 Home. В принципе вроде не плохо, ведь это 12 дюймовые модели весом меньше 1 килограмма и большой автономной работой. Оно и не удивительно, ведь при наличии материнской платы как у планшета и АКБ в 10000 мА/ч, большое время работы гарантированно. Но вот вам ложка дёгтя, и не одна. Процессоры в таких устройствах обычно Intel Atom, ОЗУ 2 Гб и 32 Гб SSD. В принципе как устройство для простого сёрфинга в интернете они имеют адекватные характеристики. Только вот проблема кроется в самой операционной системе. Во первых она 32 битная, хоть и процессор поддерживает 64 битную архитектуру, а во вторых, после нескольких обновлений, устройством пользоваться уже не возможно. Так как система уже требует хотя бы 4 Гб ОЗУ. Ну и не стоит забывать что много программ уже не поддерживают 32 битные архитектуры, и их установить не получится. Умные пользователи могут посоветовать снести Windows с которым устройство продавалось  и установить 64 битную версию, но загрузчик UEFI в них как раз 32 битный что не позволяет нормально установить любую операционную систему с поддержкой 64 бит. И тут нам на помощь приходит Linux. Дело в том что мы можем используя 32 битный загрузчик, он же Grub, установить 64 битную версию системы, а что самое главное, 32 битный Grub мы можем сами собрать используя уже установленную систему на виртуальной машине.</p>
+<blockquote>
+<p>Примечание: Все дальнейшие действия описаны на примере установки Arch Linux на нетбуке Prestigio PSB116A03. На других подобных устройствах эта инструкция не проверялась. Делайте все на свой страх и риск. Автор статьи не несёт ответственности за потерянные данные или сломанное устройство. В процессе установки SSD диск вашего устройства будет форматирован. Заранее сделайте резервную копию всех важных данных. Эта статья создана на основе множества существующих инструкций на разных форумах и сайтах.</p>
+</blockquote>
+<h2 id="подготовка-iso">Подготовка iso</h2>
+<p><em>В конце статьи будет ссылка на готовый iso образ. Если не хотите собирать загрузчик вручную, можете использовать его.</em></p>
+<p>Для начала форматируем через Rufus USB накопитель в файловую систему <strong>FAT32</strong>, схему раздела <strong>GPT</strong> и целевая система <strong>BIOS или UEFI</strong>. Метку тома указываем ARCH_YYYYMM. Где YYYYMM это год и месяц релиза Arch Linux. В методе загрузки выбрать &ldquo;Незагрузочный образ&rdquo;. Жмём старт. После завершения нужно распаковать всё содержимое образа с Arch Linux прямо на USB накопитель используя архиватор 7zip.</p>
+<p>Теперь нам предстоит использовать виртуальную машину с Arch. Просто загружаемся в ней и подключаем USB накопитель в настройках носителей виртуальной машины. Вводим <strong>lsblk</strong>, мы должны получить список дисковых устройств, среди которых будет наш USB накопитель, для примера обозначу её как sdb (у вас может быть по другому).</p>
+<p>Монтируем раздел с файлами установщика Arch в /mnt/usb/:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>mkdir /mnt/usb
+</span></span><span style="display:flex;"><span>mount /dev/sdb1 /mnt/usb
+</span></span></code></pre></div><p>Далее устанавливаем GRUB для EFI32, прописав данные команды:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>echo <span style="color:#e6db74">&#39;configfile ${cmdpath}/grub.cfg&#39;</span> &gt; /tmp/grub.cfg
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>grub-mkstandalone -d /usr/lib/grub/i386-efi -O i386-efi --modules<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;part_gpt part_msdos&#34;</span> --locales<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;en@quot&#34;</span> --themes<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;&#34;</span> -o <span style="color:#e6db74">&#34;/mnt/usb/EFI/boot/bootia32.efi&#34;</span> <span style="color:#e6db74">&#34;boot/grub/grub.cfg=/tmp/grub.cfg&#34;</span> -v
+</span></span></code></pre></div><p>Теперь нам нужно создать файл grub.cfg в директории /mnt/usb/EFI/boot с следующим содержимым:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>insmod part_gpt
+</span></span><span style="display:flex;"><span>insmod part_msdos
+</span></span><span style="display:flex;"><span>insmod fat
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>insmod all_video
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>insmod font
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">if</span> loadfont <span style="color:#e6db74">&#34;</span><span style="color:#e6db74">${</span>prefix<span style="color:#e6db74">}</span><span style="color:#e6db74">/fonts/unicode.pf2&#34;</span> ; <span style="color:#66d9ef">then</span>
+</span></span><span style="display:flex;"><span>    insmod gfxterm
+</span></span><span style="display:flex;"><span>    set gfxmode<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;1024x768x32;auto&#34;</span>
+</span></span><span style="display:flex;"><span>    terminal_input console
+</span></span><span style="display:flex;"><span>    terminal_output gfxterm
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">fi</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>menuentry <span style="color:#e6db74">&#34;Arch Linux by CoderLog www.coderlog.top&#34;</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>    set gfxpayload<span style="color:#f92672">=</span>keep
+</span></span><span style="display:flex;"><span>    search --no-floppy --set<span style="color:#f92672">=</span>root --label ARCH_YYYYMM
+</span></span><span style="display:flex;"><span>    linux /arch/boot/x86_64/vmlinuz-linux archisobasedir<span style="color:#f92672">=</span>arch archisolabel<span style="color:#f92672">=</span>ARCH_YYYYMM add_efi_memmap
+</span></span><span style="display:flex;"><span>    initrd /arch/boot/intel-ucode.img /arch/boot/x86_64/initramfs-linux.img
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span></code></pre></div><p><em>Это можно сделать и на основной системе. Не обязательно использовать терминал.</em></p>
+<p>Где ARCH_YYYYMM, указываем метку тома которую указывали в момент форматирования USB накопителя. Вот и все, накопитель готовый для установки системы на ноутбук.</p>
+<h2 id="установка-arch-linux">Установка Arch Linux</h2>
+<p>После загрузки системы с usb, настроим русский язык для удобства работы:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>loadkeys ru
+</span></span></code></pre></div><p>Изменим консольный шрифт на тот, который поддерживает кириллицу:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>setfont cyr-sun16
+</span></span></code></pre></div><p>Подключение к интернету. Wi-Fi на этом ноутбуке не заведётся, вернее устройство wlan0 работает но к сети вы не подключитесь. По этому подключаем телефон к ноутбуку и включаем режим модема. И подключаемся как по кабелю:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>dhcpcd
+</span></span></code></pre></div><p>Синхронизация системных часов:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>timedatectl set-ntp true
+</span></span></code></pre></div><h3 id="создание-разделов">Создание разделов</h3>
+<p>Смотрим какие диски есть:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>fdisk -l
+</span></span></code></pre></div><p>Разбиваем диски (для ручной разметки используем <strong>fdisk</strong>, для псевдографической разбивки можно использовать команду <strong>cfdisk</strong>)</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>fdisk /dev/mmcblk1
+</span></span></code></pre></div><h3 id="процесс-разбивки-диска-по-шагам">Процесс разбивки диска по шагам</h3>
+<ol>
+<li>Создаем GPT таблицу  командой <strong>g</strong></li>
+<li>Создаем новый диск командой <strong>n</strong></li>
+<li>Выбираем primary (основной) или extented (расширенный)По умолчанию стоит primary (основной) поэтому просто жмем <strong>enter</strong></li>
+<li>Выбор номера диска, по умолчанию подставляется следующий номер. Просто жмем <strong>enter</strong></li>
+<li>Запрос на первый сектор диска Просто жмем <strong>enter</strong></li>
+<li>Запрос на последний сектор диска (Ставим + и объем памяти. Пример: +500M)</li>
+<li>Для efi не забываем указать, что это efi раздел <strong>t</strong> и поставить <strong>1</strong></li>
+</ol>
+<p>Повторяем все шаги снова для всех нужных разделов диска. Как все разметили не забываем все записать командой <strong>w</strong> . В итоге можете проверить, что у вас получилось командой <strong>fdisk -l</strong></p>
+<h3 id="форматирование-и-монтирование-разделов"><strong>Форматирование и монтирование разделов</strong></h3>
+<p>Форматирование дисков:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>mkfs.fat -F32 /dev/mmcblk1p1
+</span></span><span style="display:flex;"><span>mkfs.ext4  /dev/mmcblk1p2
+</span></span></code></pre></div><p>Монтирование дисков:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>mount /dev/mmcblk1p2 /mnt
+</span></span><span style="display:flex;"><span>mkdir -p /mnt/boot/efi
+</span></span><span style="display:flex;"><span>mount /dev/mmcblk1p2 /mnt/boot/efi
+</span></span></code></pre></div><p>Устанавливаем базовую систему + необходимые пакеты:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>pacstrap /mnt base base-devel linux linux-firmware nano netctl dhcpcd
+</span></span></code></pre></div><p><strong>Настройка системы</strong></p>
+<p>Генерируем fstab, для этого используем следующую команду:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>genfstab -pU /mnt &gt;&gt; /mnt/etc/fstab
+</span></span></code></pre></div><p>Перейдём в установленную систему:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>arch-chroot /mnt
+</span></span></code></pre></div><p>Прописываем имя компьютера. Вместо ArchLinux впишите свое название:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>echo <span style="color:#e6db74">&#34;ArchLinux&#34;</span> &gt; /etc/hostname
+</span></span></code></pre></div><p>Настроим часы (Для Киева):</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>ln -sf /usr/share/zoneinfo/Europe/Kiev /etc/localtime
+</span></span></code></pre></div><p>Добавим русскую локаль в систему:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>echo -e <span style="color:#e6db74">&#34;en_US.UTF-8 UTF-8\nru_RU.UTF-8 UTF-8&#34;</span> &gt;&gt; /etc/locale.gen
+</span></span></code></pre></div><p>Обновим текущую локаль системы:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>locale-gen
+</span></span></code></pre></div><p>Указываем язык системы:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>echo <span style="color:#e6db74">&#39;LANG=&#34;ru_RU.UTF-8&#34;&#39;</span> &gt; /etc/locale.conf
+</span></span></code></pre></div><p>Указываем keymap для console + прописываем шрифт:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>echo <span style="color:#e6db74">&#39;KEYMAP=ru&#39;</span> &gt;&gt; /etc/vconsole.conf
+</span></span><span style="display:flex;"><span>echo <span style="color:#e6db74">&#39;FONT=cyr-sun16&#39;</span> &gt;&gt; /etc/vconsole.conf
+</span></span></code></pre></div><p>Создадим загрузочный RAM диск:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>mkinitcpio -p linux
+</span></span></code></pre></div><p>Изменим пароль root:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>passwd
+</span></span></code></pre></div><p>Обновляем базы данных пакетов:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>pacman -Syy
+</span></span></code></pre></div><p>Устанавливаем загрузчик:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>pacman -S grub efibootmgr
+</span></span><span style="display:flex;"><span>grub-install /dev/mmcblk1
+</span></span></code></pre></div><p>Обновляем grub.cfg:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>grub-mkconfig -o /boot/grub/grub.cfg
+</span></span></code></pre></div><p>Ставим программу для Wi-fi:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>pacman -S dialog wpa_supplicant
+</span></span></code></pre></div><p>Выходим и перегружаем:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>exit
+</span></span><span style="display:flex;"><span>reboot
+</span></span></code></pre></div><p><strong>После установки</strong></p>
+<p>Логинимся, логин root, пароль тот, что установили.</p>
+<p>Подключаем wifi:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>wifi-menu
+</span></span></code></pre></div><p><strong>Добавляем пользователя</strong></p>
+<p>Добавим нового пользователя. Вместо MYUSERNAME пишем имя пользователя без спец символов, только маленькие лат. буквы:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>useradd -m -g users -G wheel -s /bin/bash MYUSERNAME
+</span></span></code></pre></div><p>Установим пароль для нового пользователя. Вместо MYUSERNAME пишем имя пользователя:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>passwd MYUSERNAME
+</span></span></code></pre></div><p><strong>Устанавливаем SUDO</strong></p>
+<p>Заходим в файл sudoers:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>nano /etc/sudoers
+</span></span></code></pre></div><p>В файле /etc/sudoers находим строчку # %wheel ALL=(ALL) ALL и раскомментируем ее убрав символ #</p>
+<p><strong>Ставим иксы и драйвера</strong></p>
+<p>Установим Х (Иксы) и свободные драйвера + читаем зависимости при необходимости ставим их тоже:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>pacman -S xorg-server xorg-drivers
+</span></span></code></pre></div><p><strong>Ставим Xfce, LXDM и сетевые утилиты</strong></p>
+<p>Ставим Xfce + менеджер входа lxdm (или sddm):</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>pacman -S xfce4 xfce4-goodies lxdm
+</span></span></code></pre></div><p>Ставим шрифты, чтобы можно было читать, что написано. Иначе будут просто квадратики:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>pacman -S ttf-liberation ttf-dejavu
+</span></span></code></pre></div><p>Ставим менеджер сети:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>pacman -S networkmanager network-manager-applet ppp
+</span></span></code></pre></div><p>Подключаем автозагрузку менеджера входа и интернет (с соблюдением регистра для NetworkManager):</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>systemctl enable lxdm NetworkManager
+</span></span></code></pre></div><p><strong>Перезагрузка</strong></p>
+<p>Выбираем Xfce <strong>Session</strong> или просто “<strong>Сеанс</strong>”!!!!! Это важно иначе не войдете!</p>
+<p><strong>Установка AUR</strong></p>
+<p>yaourt и aurman более не обновляются разработчиками поэтому рекомендую к использованию именно yay</p>
+<p>Обновляем систему:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>sudo pacman -Syu
+</span></span></code></pre></div><p>Создаём yay_install директорию и переходим в неё:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>mkdir -p /tmp/yay_install
+</span></span><span style="display:flex;"><span>cd /tmp/yay_install
+</span></span></code></pre></div><p>Установка &ldquo;yay&rdquo; из AUR:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>sudo pacman -S git
+</span></span><span style="display:flex;"><span>git clone https://aur.archlinux.org/yay.git
+</span></span><span style="display:flex;"><span>cd yay
+</span></span><span style="display:flex;"><span>makepkg -sir --needed --noconfirm --skippgpcheck
+</span></span><span style="display:flex;"><span>rm -rf yay_install
+</span></span></code></pre></div><p>Если вы предпочитаете работать с графическим интерфейсом, а не с терминалом то как альтернативу yay можно использовать pamac (установщик пакетов из AUR c GUI)</p>
+<p>Обновляем систему:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>sudo pacman -Syu
+</span></span></code></pre></div><p>Создаём pamac-aur_install директорию и переходим в неё:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>mkdir -p /tmp/pamac-aur_install
+</span></span><span style="display:flex;"><span>cd /tmp/pamac-aur_install
+</span></span></code></pre></div><p>Установка &ldquo;pamac-aur&rdquo; из AUR:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>sudo pacman -S git
+</span></span><span style="display:flex;"><span>git clone https://aur.archlinux.org/pamac-aur.git
+</span></span><span style="display:flex;"><span>cd pamac-aur
+</span></span><span style="display:flex;"><span>makepkg -si --needed --noconfirm --skippgpcheck
+</span></span><span style="display:flex;"><span>rm -rf pamac-aur_install
+</span></span></code></pre></div><p><strong>Установка программ</strong></p>
+<p>Установка пакетов, которые решают большинство проблем, с которыми вы можете столкнуться:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>sudo pacman -S f2fs-tools dosfstools ntfs-3g alsa-lib alsa-utils file-roller p7zip unrar gvfs aspell-ru pulseaudio
+</span></span></code></pre></div><p>Установка AUR программ:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>yay -S sublime-text-dev cherrytree timeshift hunspell-ru pamac-aur papirus-maia-icon-theme-git breeze-obsidian-cursor-theme xflux xflux-gui-git flameshot-git megasync
+</span></span></code></pre></div><p>Вот и вся инструкция. Дальше можете кастомизировать и настраивать xfce как вам угодно.</p>
+<p>Ссылка на iso образ: 
+
+
+<a href="https://mega.nz/file/C5JwnJrR#0wXYEDtT9mAkWoPH_QMhR4yueloi6MhyXGd5vFBLtQA" rel="nofollow" target="_BLANK">ARCH_202104.iso</a></p>
+<p>Ссылка на bootia32.efi для Arch Linux: 
+
+
+<a href="https://mega.nz/file/WpByDLBQ#eWf2om-XuyjVh_OPV3OhCSXFfR6W5riDYKXDW1YdFJY" rel="nofollow" target="_BLANK">bootia32.efi</a></p>
+<p>Ссылка на grub.cfg для Arch Linux: 
+
+
+<a href="https://mega.nz/file/P0JkGTgT#gTx51QzM7IwWzJuYHxxXTM_rxBn9_rYPvZK8pW2wlMA" rel="nofollow" target="_BLANK">grub.cfg</a></p>
+<blockquote>
+<p>Файлы bootia32.efi и grub.cfg нужно положить по пути EFI/BOOT/ на USB накопитель с записанным образом Arch Linux</p>
+</blockquote>
+
+    </div>
+</article>
+
+
+
+
+            </div>
+            <aside class="col-12 col-md-3 float-left sidebar">
+    
+    <div class="sidebar-item sidebar-pages">
+        <h3>Pages</h3>
+        <ul>
+            
+            <li>
+                <a href="/video/"> Відео</a>
+            </li>
+            
+            <li>
+                <a href="/projects/"> Проєкти</a>
+            </li>
+            
+            <li>
+                <a href="/cv/"> CV</a>
+            </li>
+            
+            <li>
+                <a href="/donate/"> Підтримати автора</a>
+            </li>
+            
+        </ul>
+    </div>
+    
+    <div class="sidebar-item sidebar-links">
+        <h3>Links</h3>
+        <ul>
+            
+            <li>
+                <a href="https://news.google.com/publications/CAAqBwgKMIDSngswl9y2Aw?oc=3&amp;ceid=UA:ru" target="_blank"><span>Google News</span></a>
+            </li>
+            
+            <li>
+                <a href="https://t.me/coderlogchat" target="_blank"><span>Чат в Telegram</span></a>
+            </li>
+            
+            <li>
+                <a href="https://t.me/coderlog_channel" target="_blank"><span>Канал в Telegram</span></a>
+            </li>
+            
+            <li>
+                <a href="https://www.youtube.com/channel/UCQFJjX4FFGp4zLWo1R-viKQ" target="_blank"><span>YouTube</span></a>
+            </li>
+            
+        </ul>
+    </div>
+    
+    <div class="sidebar-item sidebar-tags">
+        <h3>Tags</h3>
+        <div>
+            
+            <span>
+                <a href="/tags/api/">API</a>,
+            </span>
+            
+            <span>
+                <a href="/tags/arch-linux/">arch linux</a>,
+            </span>
+            
+            <span>
+                <a href="/tags/datascience/">datascience</a>,
+            </span>
+            
+            <span>
+                <a href="/tags/defi/">DeFi</a>,
+            </span>
+            
+            <span>
+                <a href="/tags/dex/">DEX</a>,
+            </span>
+            
+            <span>
+                <a href="/tags/exon-center/">Exon Center</a>,
+            </span>
+            
+            <span>
+                <a href="/tags/intel-atom/">intel atom</a>,
+            </span>
+            
+            <span>
+                <a href="/tags/linux/">linux</a>,
+            </span>
+            
+            <span>
+                <a href="/tags/ml/">ml</a>,
+            </span>
+            
+            <span>
+                <a href="/tags/numpy/">numpy</a>,
+            </span>
+            
+            <span>
+                <a href="/tags/pandas/">pandas</a>,
+            </span>
+            
+            <span>
+                <a href="/tags/php/">php</a>,
+            </span>
+            
+            <span>
+                <a href="/tags/psb116a03/">PSB116A03</a>,
+            </span>
+            
+            <span>
+                <a href="/tags/python/">python</a>,
+            </span>
+            
+            <span>
+                <a href="/tags/rest-full-api/">REST FULL API</a>,
+            </span>
+            
+            <span>
+                <a href="/tags/server/">server</a>,
+            </span>
+            
+            <span>
+                <a href="/tags/tkinter/">tkinter</a>,
+            </span>
+            
+            <span>
+                <a href="/tags/ubuntu/">ubuntu</a>,
+            </span>
+            
+            <span>
+                <a href="/tags/uefi/">uefi</a>,
+            </span>
+            
+            <span>
+                <a href="/tags/video/">video</a>,
+            </span>
+            
+            <span>
+                <a href="/tags/vim/">vim</a>,
+            </span>
+            
+            <span>
+                <a href="/tags/windows-11/">windows 11</a>,
+            </span>
+            
+            <span>
+                <a href="/tags/windows-insiders/">Windows Insiders</a>,
+            </span>
+            
+            <span>
+                <a href="/tags/%D0%B4%D0%B5%D1%86%D0%B5%D0%BD%D1%82%D1%80%D0%B0%D0%BB%D0%B8%D0%B7%D0%BE%D0%B2%D0%B0%D0%BD%D0%BD%D0%B0%D1%8F-%D0%B1%D0%B8%D1%80%D0%B6%D0%B0/">децентрализованная биржа</a>,
+            </span>
+            
+            <span>
+                <a href="/tags/%D0%BF%D0%BE%D0%B4%D0%BA%D0%B0%D1%81%D1%82/">Подкаст</a>,
+            </span>
+            
+            <span>
+                <a href="/tags/%D1%83%D1%81%D1%82%D0%B0%D0%BD%D0%BE%D0%B2%D0%BA%D0%B0-arch-linux/">установка arch linux</a>,
+            </span>
+            
+        </div>
+    </div>
+
+   
+</aside>
+        </div>
+        <div class="btn">
+    <div class="btn-menu" id="btn-menu">
+        <i class="iconfont icon-grid-sharp"></i>
+    </div>
+    <div class="btn-toggle-mode">
+        <i class="iconfont icon-contrast-sharp"></i>
+    </div>
+    <div class="btn-scroll-top">
+        <i class="iconfont icon-chevron-up-circle-sharp"></i>
+    </div>
+</div>
+<aside class="sidebar-mobile" style="display: none;">
+  <div class="sidebar-wrapper">
+    
+    <div class="sidebar-item sidebar-pages">
+        <h3>Pages</h3>
+        <ul>
+            
+            <li>
+                <a href="/video/">Відео</a>
+            </li>
+            
+            <li>
+                <a href="/projects/">Проєкти</a>
+            </li>
+            
+            <li>
+                <a href="/cv/">CV</a>
+            </li>
+            
+            <li>
+                <a href="/donate/">Підтримати автора</a>
+            </li>
+            
+        </ul>
+    </div>
+    
+    <div class="sidebar-item sidebar-links">
+        <h3>Links</h3>
+        <ul>
+            
+            <li>
+                <a href="https://news.google.com/publications/CAAqBwgKMIDSngswl9y2Aw?oc=3&amp;ceid=UA:ru" target="_blank"><span>Google News</span></a>
+            </li>
+            
+            <li>
+                <a href="https://t.me/coderlogchat" target="_blank"><span>Чат в Telegram</span></a>
+            </li>
+            
+            <li>
+                <a href="https://t.me/coderlog_channel" target="_blank"><span>Канал в Telegram</span></a>
+            </li>
+            
+            <li>
+                <a href="https://www.youtube.com/channel/UCQFJjX4FFGp4zLWo1R-viKQ" target="_blank"><span>YouTube</span></a>
+            </li>
+            
+        </ul>
+    </div>
+    
+    <div class="sidebar-item sidebar-tags">
+        <h3>Tags</h3>
+        <div>
+            
+            <span>
+                <a href="/tags/api/">API</a>
+            </span>
+            
+            <span>
+                <a href="/tags/arch-linux/">arch linux</a>
+            </span>
+            
+            <span>
+                <a href="/tags/datascience/">datascience</a>
+            </span>
+            
+            <span>
+                <a href="/tags/defi/">DeFi</a>
+            </span>
+            
+            <span>
+                <a href="/tags/dex/">DEX</a>
+            </span>
+            
+            <span>
+                <a href="/tags/exon-center/">Exon Center</a>
+            </span>
+            
+            <span>
+                <a href="/tags/intel-atom/">intel atom</a>
+            </span>
+            
+            <span>
+                <a href="/tags/linux/">linux</a>
+            </span>
+            
+            <span>
+                <a href="/tags/ml/">ml</a>
+            </span>
+            
+            <span>
+                <a href="/tags/numpy/">numpy</a>
+            </span>
+            
+            <span>
+                <a href="/tags/pandas/">pandas</a>
+            </span>
+            
+            <span>
+                <a href="/tags/php/">php</a>
+            </span>
+            
+            <span>
+                <a href="/tags/psb116a03/">PSB116A03</a>
+            </span>
+            
+            <span>
+                <a href="/tags/python/">python</a>
+            </span>
+            
+            <span>
+                <a href="/tags/rest-full-api/">REST FULL API</a>
+            </span>
+            
+            <span>
+                <a href="/tags/server/">server</a>
+            </span>
+            
+            <span>
+                <a href="/tags/tkinter/">tkinter</a>
+            </span>
+            
+            <span>
+                <a href="/tags/ubuntu/">ubuntu</a>
+            </span>
+            
+            <span>
+                <a href="/tags/uefi/">uefi</a>
+            </span>
+            
+            <span>
+                <a href="/tags/video/">video</a>
+            </span>
+            
+            <span>
+                <a href="/tags/vim/">vim</a>
+            </span>
+            
+            <span>
+                <a href="/tags/windows-11/">windows 11</a>
+            </span>
+            
+            <span>
+                <a href="/tags/windows-insiders/">Windows Insiders</a>
+            </span>
+            
+            <span>
+                <a href="/tags/%D0%B4%D0%B5%D1%86%D0%B5%D0%BD%D1%82%D1%80%D0%B0%D0%BB%D0%B8%D0%B7%D0%BE%D0%B2%D0%B0%D0%BD%D0%BD%D0%B0%D1%8F-%D0%B1%D0%B8%D1%80%D0%B6%D0%B0/">децентрализованная биржа</a>
+            </span>
+            
+            <span>
+                <a href="/tags/%D0%BF%D0%BE%D0%B4%D0%BA%D0%B0%D1%81%D1%82/">Подкаст</a>
+            </span>
+            
+            <span>
+                <a href="/tags/%D1%83%D1%81%D1%82%D0%B0%D0%BD%D0%BE%D0%B2%D0%BA%D0%B0-arch-linux/">установка arch linux</a>
+            </span>
+            
+        </div>
+    </div>
+    
+    
+    
+    
+  </div>
+</aside>
+    </main>
+
+    <style>
+    .social-links-header {
+    margin-top: 40px;
+    display: flex;
+    justify-content: center;
+    }
+    .social-links-header a {
+        font-size: 16px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: rgba(255, 255, 255, 0.1);
+         
+        line-height: 1;
+        margin-right: 8px;
+        border-radius: 50%;
+        width: 40px;
+        height: 40px;
+        text-decoration: none;
+    }
+    .social-links-header a:hover{
+        color: #cf8004;
+        text-decoration: none;
+    }
+</style>
+
+<footer>
+    <div class="social-links-header">
+        <a href="https://www.facebook.com/alexborschdeveloper" target="_blank" rel="noopener"><i class="fab fa-facebook"></i></a>
+        <a href="https://twitter.com/o_borshch" target="_blank" rel="noopener"><i class="fab fa-twitter"></i></a>
+        <a href="https://github.com/alexborsch" target="_blank" rel="noopener"><i class="fab fa-github"></i></a>
+        <a href="https://instagram.com/oleksandr_borsch" target="_blank" rel="noopener"><i class="fab fa-instagram"></i></a>
+        <a href="https://youtube.com/c/coderlog" target="_blank" rel="noopener"><i class="fab fa-youtube"></i></a>
+        
+    </div>
+    <div class="container-lg clearfix">    
+        <div class="col-12 footer">
+            
+            <span>CoderLog Projects | Copyright © All rights reserved. 2022
+                <a href=""></a>
+                
+                
+            </span>
+        </div>
+    </div>
+</footer>
+
+    
+<script defer src="https://cdn.jsdelivr.net/npm/medium-zoom@1.0.6/dist/medium-zoom.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/lazysizes@5.3.0/lazysizes.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/prismjs@1.23.0/components/prism-core.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/prismjs@1.23.0/plugins/autoloader/prism-autoloader.min.js"></script>
+
+
+
+<script defer src="/assets/js/fuji.min.js"></script>
+
+
+</body>
+
+</html>

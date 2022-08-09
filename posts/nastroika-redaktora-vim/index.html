@@ -1,0 +1,848 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+<meta name="HandheldFriendly" content="True" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+<meta name="generator" content="Hugo 0.98.0" />
+
+
+<link rel="shortcut icon" href="/sys/favicon.ico" />
+
+
+
+<title>Настройка редактора VIM - CoderLog</title>
+
+
+<meta name="author" content="Alex Borsch" />
+
+
+<meta name="description" content="Рано или поздно всем нужно познакомится с терминальным текстовым редактором Vim. В этой статье вы узнаете как настроить и кастомизировать редактор Vim и конечно же, ответим на главный вопрос человечества: Как выйти из Vim?" />
+
+
+<meta name="keywords" content="vim" />
+
+
+<meta property="og:title" content="Настройка редактора VIM" />
+<meta name="twitter:title" content="Настройка редактора VIM" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="/posts/nastroika-redaktora-vim/" /><meta property="og:description" content="Рано или поздно всем нужно познакомится с терминальным текстовым редактором Vim. В этой статье вы узнаете как настроить и кастомизировать редактор Vim и конечно же, ответим на главный вопрос человечества: Как выйти из Vim?" />
+<meta name="twitter:description" content="Рано или поздно всем нужно познакомится с терминальным текстовым редактором Vim. В этой статье вы узнаете как настроить и кастомизировать редактор Vim и конечно же, ответим на главный вопрос человечества: Как выйти из Vim?" /><meta property="og:image" content="https://coderlog.top/img/nastroika-redaktora-vim.webp" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:image" content="/img/nastroika-redaktora-vim.webp" /><meta property="article:published_time" content="2021-04-26T09:14:13+03:00" /><meta property="article:modified_time" content="2021-04-26T09:14:13+03:00" />
+
+
+<style>
+    @media (prefers-color-scheme: dark) {
+        body[data-theme='auto'] img {
+            filter: brightness(60%);
+        }
+    }
+
+    body[data-theme='dark'] img {
+        filter: brightness(60%);
+    }
+    
+</style>
+
+<style>
+    .post-card-image{
+        width:100%;
+        height:200px;
+        background:#c5d2d9 no-repeat 50%;
+        -o-object-fit:cover;
+        object-fit:cover;
+        opacity: .9;
+        }
+    .post-img{
+        vertical-align: middle;
+        border-style: none;
+    }
+</style>
+
+
+<link rel="stylesheet" href="/assets/css/fuji.min.css" />
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.2/css/all.css" integrity="sha384-vSIIfh2YWi9wW0r9iZe7RJPrKwp6bG+s9QZMoITbCckVJqGCCRhc+ccxNcdpHuYu" crossorigin="anonymous">
+<link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@300&amp;display=swap" rel="stylesheet">
+
+<script async data-ad-client="ca-pub-4204889323174810" src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+
+
+
+
+
+<script>
+    window.dataLayer = window.dataLayer || [];
+
+    function gtag() {
+        dataLayer.push(arguments);
+    }
+    gtag('js', new Date());
+    gtag('config', 'UA-148726147-1');
+</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-148726147-1"></script>
+
+
+
+</head>
+
+<body data-theme="auto">
+<style>
+    body{
+        font-family: 'Comfortaa', cursive;
+    }
+</style>
+    <script data-cfasync="false">
+  
+  var fujiThemeData = localStorage.getItem('fuji_data-theme');
+  
+  if (!fujiThemeData) {
+    localStorage.setItem('fuji_data-theme', 'auto');
+  } else {
+    
+    if (fujiThemeData !== 'auto') {
+      document.body.setAttribute('data-theme', fujiThemeData === 'dark' ? 'dark' : 'light');
+    }
+  }
+</script>
+    <header>
+    <div class="container-lg clearfix">
+        <div class="col-12 header">
+            <a href="/">
+                
+                    <img class="site-logo" src="/sys/coderlog.png" alt="CoderLog" />
+                
+            </a>
+        </div>
+
+    </div>
+</header>
+
+    <main>
+        <div class="container-lg clearfix">
+            
+            <div class="col-12 col-md-9 float-left content">
+                
+<article>
+    
+    <h1 class="post-item post-title">
+        <a href="/posts/nastroika-redaktora-vim/">Настройка редактора VIM</a>
+    </h1>
+    <div class="post-item post-meta">
+        <span><i class="iconfont icon-today-sharp"></i>&nbsp;2021-04-26</span>
+
+
+<span>
+    <i class="iconfont icon-pricetags-sharp"></i>&nbsp;<a href="/tags/vim">vim</a>&nbsp;
+</span>
+
+    </div>
+    
+    <div class="post-content markdown-body">
+        
+            <img class="post-img" src="/img/nastroika-redaktora-vim.webp" alt="Настройка редактора VIM"/>
+            
+        <h2 id="предисловие">Предисловие</h2>
+<p>Что такое vim? Vim - это свободный терминальный текстовый редактор, созданный на основе более старого редактора Vi. Ныне это мощный текстовый редактор с полной свободой настройки и автоматизации, возможными благодаря расширениям и надстройкам. автор редактора, Брам Моленар. Он активный член сообщества Open Source, основатель фонда ICCF Holland foundation, благотворительной организации, проводящей проект помощи детям из Уганды. Так же Брем является автором языка программирования Zimbu. На данный момент он работает в Google.</p>
+<p>Первый выпуск редактора Vim произошёл 2 ноября 1991 года, а последняя версия выпущена 13 декабря 2019. На данный момент редактор Vim, является стандартным редактором практически на всех Unix операционных системах.</p>
+<p>Редактор Vim оброс кучей заблуждений и легенд что он очень сложный в освоении, что с него невозможно выйти и тд. Наверно по этому самый популярный запрос в Google по поводу редактора Vim это: &ldquo;Как выйти из Vim?&rdquo;.</p>
+<h2 id="установка-vim">Установка Vim</h2>
+<p>Для установки vim достаточно перейти на его официальный сайт и скачать исполняемый файл установки для вашей операционной системы. Если вы работаете на Unix системе, то у вас он должен быть установлен по умолчанию. Для проверки, введите в терминале vim. Если же его нет то установку сделать используя команду:</p>
+<p>Debian:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>sudo apt-get install vim
+</span></span></code></pre></div><p>Fedora:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>sudo dnf install vim
+</span></span></code></pre></div><p>(Для других Unix систем используйте команду своего пакетного менеджера для установки редактора)</p>
+<p>Для операционный системы Windows просто установите exe под версию вашей системы и убедитесь что папка с Vim указана в PATH. Если в PATH не будет указан путь на папку Vim, вы не сможете запустить его из командной строки. Для проверки PATH в Windows 10 идём в &ldquo;Параметры -&gt; Система -&gt; О программе&rdquo;, Выбираем пункт &ldquo;Дополнительные параметры системы&rdquo;. В открывшемся окне выбираем &ldquo;Переменные среды&rdquo;, кликаем на PATH и смотрим чтобы был прописан путь к папке vim, если нет добавляем.</p>
+<p>Вот и все, теперь достаточно ввести в терминале vim и начать работу с настройкой и кастомизацией редактора.</p>
+<h2 id="настройка-vim">Настройка vim</h2>
+<p>Вся настройка редактора осуществляется редактированием главного конфига vimrc. Он находится в домашней директории пользователя.</p>
+<p>Для Unix систем путь к конфигу выглядит так:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>/home/username/.vimrc
+</span></span></code></pre></div><p>Для Windows путь к конфигу выглядит так:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>C:<span style="color:#ae81ff">\U</span>sers<span style="color:#ae81ff">\u</span>sername<span style="color:#ae81ff">\.</span>vimrc
+</span></span></code></pre></div><p>Для настройки и кастомизации vim мы будем работать только с этим файлом. Давайте посмотрим как редактор выглядит без каких либо настроек и кастомизаций.</p>
+<p><img class="img-zoomable" src="/img/vim.webp" alt="vim" />
+</p>
+<p>Для новеньких пользователей vim, такой интерфейс может показаться устрашающим и не понятным. Многие для того чтобы из него выйти, просто закрывают терминал. Но даже не обращают внимание что при открытии редактора, он сам показывает нам как можно из него выйти.</p>
+<p><img class="img-zoomable" src="/img/vim-exit.webp" alt="vim" />
+</p>
+<p>Давайте приступим к настройке и добавим просты и банальные вещи в редактор, без которых не обойтись любому редактору в современное время. Создайте новый файл .vimrc, если такого нет в домашней директории вашего пользователя. Первый делом давайте добавим редактору возможность выводить номера строк. Это делается добавлением параметра:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>set number
+</span></span></code></pre></div><p>Сохраняем и перезапускаем редактор.</p>
+<p><img class="img-zoomable" src="/img/vim-set-number.webp" alt="vim" />
+</p>
+<p>Вот так уже намного удобнее, правда? Но это ещё не все. Vim славится не только свое скоростью работы, главное преимущество этого редактора это его горячие клавиши. Они продуманы таким образом, чтобы пользователь никогда не брал в руки мышь, а постоянно использовал клавиатуру. Но вот в чём проблема, этих горячих клавиш огромное количество. И всех их запомнить не так просто. Кроме всех существующих горячих клавиш, vim позволяет нам создавать свои и переназначать существующие. Но все таки я рекомендую научится пользоваться редактором с дефолтными горячими клавишами. Ведь в какой-то момент вы можете работать с редактором на машине без настроенного конфига. Это может стать для вас проблемой в использовании редактора. И так, добавление горячих клавиш происходит с помощью команды nnoremap. Синтаксис команды следующий: &ldquo;nnoremap сочетание клавиш выполняемая команда&rdquo;. Давайте добавим два хоткея, сохранения файла и выход из редактора. Для этого в конфиг добавим следующие строки:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>nnoremap &lt;C-q&gt; :q&lt;CR&gt;
+</span></span><span style="display:flex;"><span>nnoremap &lt;C-s&gt; :w&lt;CR&gt;
+</span></span></code></pre></div><p>Как и прошлый раз, сохраняем и перезапускаем редактор. Теперь при нажатии комбинации клавиш: &ldquo;Ctrl + q&rdquo; мы выйдем из редактора, а при нажатии &ldquo;Ctrl + s&rdquo; мы сохраним файл.</p>
+<p>В редакторе есть ещё одна полезная функция о которой стоит знать, это вкладки. Работают они из коробки без каких либо плагинов и расширений. Создать новую вкладку можно командой:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>:tabnew
+</span></span></code></pre></div><p>и выглядит она следующим образом:</p>
+<p><img class="img-zoomable" src="/img/vim-new-tab.webp" alt="vim" />
+</p>
+<p>Перемещаться между вкладками происходит командами:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>:tabnext
+</span></span><span style="display:flex;"><span>:tabprevious
+</span></span></code></pre></div><p>Согласитесь, для перемещения между вкладками каждый раз вводить команду не очень удобно. Давайте исправим и добавим свои хоткеи на создание вкладок и перемещение между ними. Допишем в наш конфиг следующие строки:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>nnoremap &lt;C-Left&gt; :tabprevious&lt;CR&gt;
+</span></span><span style="display:flex;"><span>nnoremap &lt;C-Right&gt; :tabnext&lt;CR&gt;
+</span></span><span style="display:flex;"><span>nnoremap &lt;C-n&gt; :tabnew&lt;CR&gt;
+</span></span></code></pre></div><p>Таким образом на хоткей &ldquo;Ctrl + n&rdquo; мы добавим возможность создавать новую вкладку, а на хоткеи &ldquo;Ctrl + стрелочка влево&rdquo;, &ldquo;Ctrl + стрелочка вправо&rdquo; навигацию между вкладками. Это намного удобнее, не так ли? Но это ещё не все.</p>
+<h2 id="менеджер-плагинов-vundle">Менеджер плагинов Vundle</h2>
+<p>Благодаря стараниям сторонних разработчиков, для редактора vim было создано огромное количество плагинов и расширений. Для удобной работы с ними был создан менеджер плагинов 
+
+
+<a href="https://github.com/VundleVim/Vundle.vim" rel="nofollow" target="_BLANK">Vundle</a>. Он позволяем быстро и просто установить нужный плагин, тему и многое другое. С тем что умеет Vundle, можете ознакомится в описании  репозитория на GutHub. Давайте приступим к его установке и настройке. Для начала убедитесь что у вас установлен Git. Так как вся работа Vundle, напрямую связана с ним. Приступим к установке. Для начала клонируем репозиторий Vundle в папку .vim которая находится в вашей домашней директории. Делается это следующей командой:</p>
+<p>Unix</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
+</span></span></code></pre></div><p>Windows:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>git clone https://github.com/VundleVim/Vundle.vim.git C:<span style="color:#ae81ff">\U</span>sers<span style="color:#ae81ff">\u</span>sername<span style="color:#ae81ff">\.</span>vim<span style="color:#ae81ff">\b</span>undle<span style="color:#ae81ff">\V</span>undle.vim
+</span></span></code></pre></div><p>Теперь нам нужно настроить сам Vim чтобы дать ему понимание где хранится Vundle чтобы он его запустил и установил нужные плагины. Открываем конфиг и дописываем следующие строки:</p>
+<p>Linux:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>set nocompatible              
+</span></span><span style="display:flex;"><span>filetype off                  
+</span></span><span style="display:flex;"><span>set rtp<span style="color:#f92672">+=</span>~/.vim/bundle/Vundle.vim
+</span></span><span style="display:flex;"><span>call vundle#begin<span style="color:#f92672">()</span>
+</span></span><span style="display:flex;"><span>Plugin <span style="color:#e6db74">&#39;VundleVim/Vundle.vim&#39;</span>
+</span></span><span style="display:flex;"><span>Plugin <span style="color:#e6db74">&#39;tpope/vim-fugitive
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">Plugin &#39;</span>git://git.wincent.com/command-t.git<span style="color:#e6db74">&#39;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">Plugin &#39;</span>rstacruz/sparkup<span style="color:#e6db74">&#39;, {&#39;</span>rtp<span style="color:#e6db74">&#39;: &#39;</span>vim/<span style="color:#960050;background-color:#1e0010">&#39;</span><span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>call vundle#end<span style="color:#f92672">()</span>            <span style="color:#e6db74">&#34; required
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">filetype plugin indent on    &#34;</span> required
+</span></span></code></pre></div><p>Windows:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>set nocompatible              
+</span></span><span style="display:flex;"><span>filetype off                  
+</span></span><span style="display:flex;"><span>set rtp<span style="color:#f92672">+=</span>$HOME/.vim/bundle/Vundle.vim/
+</span></span><span style="display:flex;"><span>call vundle#begin<span style="color:#f92672">()</span>
+</span></span><span style="display:flex;"><span>Plugin <span style="color:#e6db74">&#39;VundleVim/Vundle.vim&#39;</span>
+</span></span><span style="display:flex;"><span>Plugin <span style="color:#e6db74">&#39;tpope/vim-fugitive
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">Plugin &#39;</span>git://git.wincent.com/command-t.git<span style="color:#e6db74">&#39;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">Plugin &#39;</span>rstacruz/sparkup<span style="color:#e6db74">&#39;, {&#39;</span>rtp<span style="color:#e6db74">&#39;: &#39;</span>vim/<span style="color:#960050;background-color:#1e0010">&#39;</span><span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>call vundle#end<span style="color:#f92672">()</span>            <span style="color:#e6db74">&#34; required
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">filetype plugin indent on    &#34;</span> required
+</span></span></code></pre></div><p>Сохраняем и перезапускаем Vim. Вводим команду для установки стандартных плагинов:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>:PluginInstall
+</span></span></code></pre></div><p>Дожидаемся установки и перезапускаем редактор. Теперь для установки нового плагина нам нужно указать имя его репозитория и выполнить установку выше упомянутой командой. Все просто. Давайте приведем внешний вид редактора в более приятный глазу. Для этого установим пакет тем для Vim: vim-colorschemes. Это огромный пак тем. В нем каждый для себя найдет ту с которой сможет работать приятно. В конфиге, в списке плагинов, добавим следующую строчку и выполним установку командой :PluginInstall:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>Plugin <span style="color:#e6db74">&#39;flazz/vim-colorschemes&#39;</span>
+</span></span></code></pre></div><p>Теперь нам нужно указать какую именно тему мы хотим применить в нашем конфиге. Со всем списком тем, можно ознакомится в репозитории 
+
+
+<a href="https://github.com/flazz/vim-colorschemes" rel="nofollow" target="_BLANK">flazz/vim-colorschemes</a>. Добавляем в конфиг следующую строчку:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>colorscheme theme-name
+</span></span></code></pre></div><h2 id="заключение">Заключение</h2>
+<p>Для редактора Vim создано огромное количество тем и плагинов которые вы легко сможете найти если умеете пользоваться интернетом ;) Я показал вам базовые настройки и плагины, а их существует просто огромное количество. Возможно когда-то я соберу для вас топ тех плагинов для vim которые использую я лично. Под конец статьи как бонус выкладываю код моего личного конфига .vimrc. Я использую vim на Windows, для Linux нужно просто сменить путь к папке vundle. Мой редактор vim выглядит вот так:</p>
+<p><img class="img-zoomable" src="/img/vim-full.webp" alt="vim" />
+</p>
+<p>Видео на моём канале о настройке редактора VIM:</p>
+
+<script>
+    
+
+  
+    function labnolIframe(div) {
+      var iframe = document.createElement('iframe');
+      iframe.setAttribute(
+        'src',
+        'https://www.youtube.com/embed/' + div.dataset.id + '?autoplay=1&rel=0'
+      );
+      iframe.setAttribute('frameborder', '0');
+      iframe.setAttribute('allowfullscreen', '1');
+      iframe.setAttribute(
+        'allow',
+        'accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture'
+      );
+      div.parentNode.replaceChild(iframe, div);
+    }
+  
+    function initYouTubeVideos() {
+      var playerElements = document.getElementsByClassName('youtube-player');
+      for (var n = 0; n < playerElements.length; n++) {
+        var videoId = playerElements[n].dataset.id;
+        var div = document.createElement('div');
+        div.setAttribute('data-id', videoId);
+        var thumbNode = document.createElement('img');
+        thumbNode.src = '//i.ytimg.com/vi/ID/hqdefault.jpg'.replace(
+          'ID',
+          videoId
+        );
+        div.appendChild(thumbNode);
+        var playButton = document.createElement('div');
+        playButton.setAttribute('class', 'play');
+        div.appendChild(playButton);
+        div.onclick = function () {
+          labnolIframe(this);
+        };
+        playerElements[n].appendChild(div);
+      }
+    }
+  
+    document.addEventListener('DOMContentLoaded', initYouTubeVideos);
+  </script>
+
+<style>
+  .youtube-player {
+    position: relative;
+    padding-bottom: 56.25%;
+    height: 0;
+    overflow: hidden;
+    max-width: 100%;
+    background: #000;
+    margin: 5px;
+  }
+
+  .youtube-player iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 100;
+    background: transparent;
+  }
+
+  .youtube-player img {
+    object-fit: cover;
+    display: block;
+    left: 0;
+    bottom: 0;
+    margin: auto;
+    max-width: 100%;
+    width: 100%;
+    position: absolute;
+    right: 0;
+    top: 0;
+    border: none;
+    height: auto;
+    cursor: pointer;
+    -webkit-transition: 0.4s all;
+    -moz-transition: 0.4s all;
+    transition: 0.4s all;
+  }
+
+  .youtube-player img:hover {
+    -webkit-filter: brightness(75%);
+  }
+
+  .youtube-player .play {
+    height: 72px;
+    width: 72px;
+    left: 50%;
+    top: 50%;
+    margin-left: -36px;
+    margin-top: -36px;
+    position: absolute;
+    background: url('//i.imgur.com/TxzC70f.png') no-repeat;
+    cursor: pointer;
+  }
+</style>
+
+<div class="youtube-player" data-id="8MBDgWadRNE"></div>
+
+<p>Вот мой .vimrc:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>set nocompatible             
+</span></span><span style="display:flex;"><span>set number
+</span></span><span style="display:flex;"><span>filetype off                 
+</span></span><span style="display:flex;"><span>set laststatus<span style="color:#f92672">=</span><span style="color:#ae81ff">2</span>
+</span></span><span style="display:flex;"><span>set noshowmode
+</span></span><span style="display:flex;"><span>set cmdheight<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>set updatetime<span style="color:#f92672">=</span><span style="color:#ae81ff">50</span>
+</span></span><span style="display:flex;"><span>set rtp<span style="color:#f92672">+=</span>$HOME/.vim/bundle/Vundle.vim/
+</span></span><span style="display:flex;"><span>call vundle#begin<span style="color:#f92672">(</span><span style="color:#e6db74">&#39;$HOME/.vim/bundle/&#39;</span><span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>Plugin <span style="color:#e6db74">&#39;VundleVim/Vundle.vim&#39;</span>
+</span></span><span style="display:flex;"><span>Plugin <span style="color:#e6db74">&#39;tpope/vim-fugitive&#39;</span>
+</span></span><span style="display:flex;"><span>Plugin <span style="color:#e6db74">&#39;git://git.wincent.com/command-t.git&#39;</span>
+</span></span><span style="display:flex;"><span>Bundle <span style="color:#e6db74">&#39;rstacruz/sparkup&#39;</span>, <span style="color:#f92672">{</span><span style="color:#e6db74">&#39;rtp&#39;</span>: <span style="color:#e6db74">&#39;vim&#39;</span><span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>Plugin <span style="color:#e6db74">&#39;flazz/vim-colorschemes&#39;</span>
+</span></span><span style="display:flex;"><span>Plugin <span style="color:#e6db74">&#39;tpope/vim-surround&#39;</span>
+</span></span><span style="display:flex;"><span>Plugin <span style="color:#e6db74">&#39;itchyny/lightline.vim&#39;</span>
+</span></span><span style="display:flex;"><span>Plugin <span style="color:#e6db74">&#39;ryanoasis/vim-devicons&#39;</span>
+</span></span><span style="display:flex;"><span>Plugin <span style="color:#e6db74">&#39;vifm/vifm.vim&#39;</span>
+</span></span><span style="display:flex;"><span>Plugin <span style="color:#e6db74">&#39;dracula/vim&#39;</span>, <span style="color:#f92672">{</span><span style="color:#e6db74">&#39;name&#39;</span>:<span style="color:#e6db74">&#39;dracula&#39;</span><span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>Plugin <span style="color:#e6db74">&#39;chriskempson/base16-vim&#39;</span>
+</span></span><span style="display:flex;"><span>Plugin <span style="color:#e6db74">&#39;arcticicestudio/nord-vim&#39;</span>
+</span></span><span style="display:flex;"><span>Plugin <span style="color:#e6db74">&#39;jremmen/vim-ripgrep&#39;</span>
+</span></span><span style="display:flex;"><span>Plugin <span style="color:#e6db74">&#39;scrooloose/nerdtree&#39;</span>
+</span></span><span style="display:flex;"><span>call vundle#end<span style="color:#f92672">()</span>
+</span></span><span style="display:flex;"><span>filetype plugin indent on
+</span></span><span style="display:flex;"><span>set tabstop<span style="color:#f92672">=</span><span style="color:#ae81ff">4</span> 
+</span></span><span style="display:flex;"><span>set shiftwidth<span style="color:#f92672">=</span><span style="color:#ae81ff">4</span>
+</span></span><span style="display:flex;"><span>set smarttab
+</span></span><span style="display:flex;"><span>set expandtab
+</span></span><span style="display:flex;"><span>set softtabstop<span style="color:#f92672">=</span><span style="color:#ae81ff">4</span>
+</span></span><span style="display:flex;"><span>set autoindent
+</span></span><span style="display:flex;"><span>let python_highlight_all <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>set t_Co<span style="color:#f92672">=</span><span style="color:#ae81ff">256</span>
+</span></span><span style="display:flex;"><span>autocmd BufWritePre *.py normal m<span style="color:#e6db74">`</span>:%s/<span style="color:#ae81ff">\s\+</span>$//e <span style="color:#e6db74">``</span>
+</span></span><span style="display:flex;"><span>autocmd BufRead *.py set smartindent cinwords<span style="color:#f92672">=</span><span style="color:#66d9ef">if</span>,elif,else,for,while,try,except,finally,def,class
+</span></span><span style="display:flex;"><span>syntax on 
+</span></span><span style="display:flex;"><span>set termencoding<span style="color:#f92672">=</span>utf-8 
+</span></span><span style="display:flex;"><span>set novisualbell 
+</span></span><span style="display:flex;"><span>set t_vb<span style="color:#f92672">=</span> 
+</span></span><span style="display:flex;"><span>set backspace<span style="color:#f92672">=</span>indent,eol,start whichwrap<span style="color:#f92672">+=</span>&lt;,&gt;,<span style="color:#f92672">[</span>,<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>set showtabline<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>set wrap
+</span></span><span style="display:flex;"><span>set linebreak
+</span></span><span style="display:flex;"><span>set nobackup
+</span></span><span style="display:flex;"><span>set noswapfile
+</span></span><span style="display:flex;"><span>set encoding<span style="color:#f92672">=</span>utf-8
+</span></span><span style="display:flex;"><span>set fileencodings<span style="color:#f92672">=</span>utf8,cp1251
+</span></span><span style="display:flex;"><span>set clipboard<span style="color:#f92672">=</span>unnamed
+</span></span><span style="display:flex;"><span>set ruler
+</span></span><span style="display:flex;"><span>set hidden
+</span></span><span style="display:flex;"><span>set visualbell t_vb<span style="color:#f92672">=</span>
+</span></span><span style="display:flex;"><span>set guifont<span style="color:#f92672">=</span>Monaco:h18
+</span></span><span style="display:flex;"><span>colorscheme OceanicNext
+</span></span><span style="display:flex;"><span>let g:lightline <span style="color:#f92672">=</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#ae81ff">\ </span><span style="color:#e6db74">&#39;colorscheme&#39;</span>: <span style="color:#e6db74">&#39;wombat&#39;</span>,
+</span></span><span style="display:flex;"><span>      <span style="color:#ae81ff">\ </span><span style="color:#e6db74">&#39;active&#39;</span>: <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#ae81ff">\ </span>  <span style="color:#e6db74">&#39;left&#39;</span>: <span style="color:#f92672">[</span> <span style="color:#f92672">[</span> <span style="color:#e6db74">&#39;mode&#39;</span>, <span style="color:#e6db74">&#39;paste&#39;</span> <span style="color:#f92672">]</span>,
+</span></span><span style="display:flex;"><span>      <span style="color:#ae81ff">\ </span>            <span style="color:#f92672">[</span> <span style="color:#e6db74">&#39;gitbranch&#39;</span>, <span style="color:#e6db74">&#39;readonly&#39;</span>, <span style="color:#e6db74">&#39;filename&#39;</span>, <span style="color:#e6db74">&#39;modified&#39;</span> <span style="color:#f92672">]</span> <span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#ae81ff">\ </span><span style="color:#f92672">}</span>,
+</span></span><span style="display:flex;"><span>      <span style="color:#ae81ff">\ </span><span style="color:#e6db74">&#39;component_function&#39;</span>: <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>     <span style="color:#ae81ff">\ </span>  <span style="color:#e6db74">&#39;gitbranch&#39;</span>: <span style="color:#e6db74">&#39;FugitiveHead&#39;</span>,
+</span></span><span style="display:flex;"><span>     <span style="color:#ae81ff">\ </span>  <span style="color:#e6db74">&#39;filename&#39;</span>: <span style="color:#e6db74">&#39;LightlineFilename&#39;</span>,
+</span></span><span style="display:flex;"><span>      <span style="color:#ae81ff">\ </span><span style="color:#f92672">}</span>,
+</span></span><span style="display:flex;"><span>      <span style="color:#ae81ff">\ </span><span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">function</span>! LightlineFilename<span style="color:#f92672">()</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">return</span> &amp;filetype <span style="color:#f92672">==</span><span style="color:#75715e"># &#39;vimfiler&#39; ? vimfiler#get_status_string() :</span>
+</span></span><span style="display:flex;"><span>              <span style="color:#ae81ff">\ </span>&amp;filetype <span style="color:#f92672">==</span><span style="color:#75715e"># &#39;unite&#39; ? unite#get_status_string() :</span>
+</span></span><span style="display:flex;"><span>              <span style="color:#ae81ff">\ </span>&amp;filetype <span style="color:#f92672">==</span><span style="color:#75715e"># &#39;vimshell&#39; ? vimshell#get_status_string() :</span>
+</span></span><span style="display:flex;"><span>              <span style="color:#ae81ff">\ </span>expand<span style="color:#f92672">(</span><span style="color:#e6db74">&#39;%:t&#39;</span><span style="color:#f92672">)</span> !<span style="color:#f92672">=</span><span style="color:#75715e"># &#39;&#39; ? expand(&#39;%:t&#39;) : &#39;[No Name]&#39;</span>
+</span></span><span style="display:flex;"><span>  endfunction
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  let g:unite_force_overwrite_statusline <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>  let g:vimfiler_force_overwrite_statusline <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>  let g:vimshell_force_overwrite_statusline <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>map &lt;Leader&gt;vv :Vifm&lt;CR&gt;
+</span></span><span style="display:flex;"><span>map &lt;Leader&gt;vs :VsplitVifm&lt;CR&gt;
+</span></span><span style="display:flex;"><span>map &lt;Leader&gt;sp :SplitVifm&lt;CR&gt;
+</span></span><span style="display:flex;"><span>map &lt;Leader&gt;tv :TabVifm&lt;CR&gt;
+</span></span><span style="display:flex;"><span>map &lt;Leader&gt;vv :Vifm&lt;CR&gt;
+</span></span><span style="display:flex;"><span>imap <span style="color:#f92672">[</span> <span style="color:#f92672">[]</span>&lt;LEFT&gt;
+</span></span><span style="display:flex;"><span>imap <span style="color:#f92672">(</span> <span style="color:#f92672">()</span>&lt;LEFT&gt;
+</span></span><span style="display:flex;"><span>imap <span style="color:#f92672">{</span> <span style="color:#f92672">{}</span>&lt;LEFT&gt;
+</span></span><span style="display:flex;"><span>let NERDTreeMinimalUI <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>set cindent
+</span></span><span style="display:flex;"><span>nnoremap &lt;C-Left&gt; :tabprevious&lt;CR&gt;
+</span></span><span style="display:flex;"><span>nnoremap &lt;C-Right&gt; :tabnext&lt;CR&gt;
+</span></span><span style="display:flex;"><span>nnoremap &lt;C-n&gt; :tabnew&lt;CR&gt;
+</span></span><span style="display:flex;"><span>nnoremap &lt;C-q&gt; :q&lt;CR&gt;
+</span></span><span style="display:flex;"><span>nnoremap &lt;C-s&gt; :w&lt;CR&gt;
+</span></span><span style="display:flex;"><span>map &lt;C-f&gt; :NERDTreeToggle&lt;CR&gt;
+</span></span></code></pre></div>
+    </div>
+</article>
+
+
+
+
+            </div>
+            <aside class="col-12 col-md-3 float-left sidebar">
+    
+    <div class="sidebar-item sidebar-pages">
+        <h3>Pages</h3>
+        <ul>
+            
+            <li>
+                <a href="/video/"> Відео</a>
+            </li>
+            
+            <li>
+                <a href="/projects/"> Проєкти</a>
+            </li>
+            
+            <li>
+                <a href="/cv/"> CV</a>
+            </li>
+            
+            <li>
+                <a href="/donate/"> Підтримати автора</a>
+            </li>
+            
+        </ul>
+    </div>
+    
+    <div class="sidebar-item sidebar-links">
+        <h3>Links</h3>
+        <ul>
+            
+            <li>
+                <a href="https://news.google.com/publications/CAAqBwgKMIDSngswl9y2Aw?oc=3&amp;ceid=UA:ru" target="_blank"><span>Google News</span></a>
+            </li>
+            
+            <li>
+                <a href="https://t.me/coderlogchat" target="_blank"><span>Чат в Telegram</span></a>
+            </li>
+            
+            <li>
+                <a href="https://t.me/coderlog_channel" target="_blank"><span>Канал в Telegram</span></a>
+            </li>
+            
+            <li>
+                <a href="https://www.youtube.com/channel/UCQFJjX4FFGp4zLWo1R-viKQ" target="_blank"><span>YouTube</span></a>
+            </li>
+            
+        </ul>
+    </div>
+    
+    <div class="sidebar-item sidebar-tags">
+        <h3>Tags</h3>
+        <div>
+            
+            <span>
+                <a href="/tags/api/">API</a>,
+            </span>
+            
+            <span>
+                <a href="/tags/arch-linux/">arch linux</a>,
+            </span>
+            
+            <span>
+                <a href="/tags/datascience/">datascience</a>,
+            </span>
+            
+            <span>
+                <a href="/tags/defi/">DeFi</a>,
+            </span>
+            
+            <span>
+                <a href="/tags/dex/">DEX</a>,
+            </span>
+            
+            <span>
+                <a href="/tags/exon-center/">Exon Center</a>,
+            </span>
+            
+            <span>
+                <a href="/tags/intel-atom/">intel atom</a>,
+            </span>
+            
+            <span>
+                <a href="/tags/linux/">linux</a>,
+            </span>
+            
+            <span>
+                <a href="/tags/ml/">ml</a>,
+            </span>
+            
+            <span>
+                <a href="/tags/numpy/">numpy</a>,
+            </span>
+            
+            <span>
+                <a href="/tags/pandas/">pandas</a>,
+            </span>
+            
+            <span>
+                <a href="/tags/php/">php</a>,
+            </span>
+            
+            <span>
+                <a href="/tags/psb116a03/">PSB116A03</a>,
+            </span>
+            
+            <span>
+                <a href="/tags/python/">python</a>,
+            </span>
+            
+            <span>
+                <a href="/tags/rest-full-api/">REST FULL API</a>,
+            </span>
+            
+            <span>
+                <a href="/tags/server/">server</a>,
+            </span>
+            
+            <span>
+                <a href="/tags/tkinter/">tkinter</a>,
+            </span>
+            
+            <span>
+                <a href="/tags/ubuntu/">ubuntu</a>,
+            </span>
+            
+            <span>
+                <a href="/tags/uefi/">uefi</a>,
+            </span>
+            
+            <span>
+                <a href="/tags/video/">video</a>,
+            </span>
+            
+            <span>
+                <a href="/tags/vim/">vim</a>,
+            </span>
+            
+            <span>
+                <a href="/tags/windows-11/">windows 11</a>,
+            </span>
+            
+            <span>
+                <a href="/tags/windows-insiders/">Windows Insiders</a>,
+            </span>
+            
+            <span>
+                <a href="/tags/%D0%B4%D0%B5%D1%86%D0%B5%D0%BD%D1%82%D1%80%D0%B0%D0%BB%D0%B8%D0%B7%D0%BE%D0%B2%D0%B0%D0%BD%D0%BD%D0%B0%D1%8F-%D0%B1%D0%B8%D1%80%D0%B6%D0%B0/">децентрализованная биржа</a>,
+            </span>
+            
+            <span>
+                <a href="/tags/%D0%BF%D0%BE%D0%B4%D0%BA%D0%B0%D1%81%D1%82/">Подкаст</a>,
+            </span>
+            
+            <span>
+                <a href="/tags/%D1%83%D1%81%D1%82%D0%B0%D0%BD%D0%BE%D0%B2%D0%BA%D0%B0-arch-linux/">установка arch linux</a>,
+            </span>
+            
+        </div>
+    </div>
+
+   
+</aside>
+        </div>
+        <div class="btn">
+    <div class="btn-menu" id="btn-menu">
+        <i class="iconfont icon-grid-sharp"></i>
+    </div>
+    <div class="btn-toggle-mode">
+        <i class="iconfont icon-contrast-sharp"></i>
+    </div>
+    <div class="btn-scroll-top">
+        <i class="iconfont icon-chevron-up-circle-sharp"></i>
+    </div>
+</div>
+<aside class="sidebar-mobile" style="display: none;">
+  <div class="sidebar-wrapper">
+    
+    <div class="sidebar-item sidebar-pages">
+        <h3>Pages</h3>
+        <ul>
+            
+            <li>
+                <a href="/video/">Відео</a>
+            </li>
+            
+            <li>
+                <a href="/projects/">Проєкти</a>
+            </li>
+            
+            <li>
+                <a href="/cv/">CV</a>
+            </li>
+            
+            <li>
+                <a href="/donate/">Підтримати автора</a>
+            </li>
+            
+        </ul>
+    </div>
+    
+    <div class="sidebar-item sidebar-links">
+        <h3>Links</h3>
+        <ul>
+            
+            <li>
+                <a href="https://news.google.com/publications/CAAqBwgKMIDSngswl9y2Aw?oc=3&amp;ceid=UA:ru" target="_blank"><span>Google News</span></a>
+            </li>
+            
+            <li>
+                <a href="https://t.me/coderlogchat" target="_blank"><span>Чат в Telegram</span></a>
+            </li>
+            
+            <li>
+                <a href="https://t.me/coderlog_channel" target="_blank"><span>Канал в Telegram</span></a>
+            </li>
+            
+            <li>
+                <a href="https://www.youtube.com/channel/UCQFJjX4FFGp4zLWo1R-viKQ" target="_blank"><span>YouTube</span></a>
+            </li>
+            
+        </ul>
+    </div>
+    
+    <div class="sidebar-item sidebar-tags">
+        <h3>Tags</h3>
+        <div>
+            
+            <span>
+                <a href="/tags/api/">API</a>
+            </span>
+            
+            <span>
+                <a href="/tags/arch-linux/">arch linux</a>
+            </span>
+            
+            <span>
+                <a href="/tags/datascience/">datascience</a>
+            </span>
+            
+            <span>
+                <a href="/tags/defi/">DeFi</a>
+            </span>
+            
+            <span>
+                <a href="/tags/dex/">DEX</a>
+            </span>
+            
+            <span>
+                <a href="/tags/exon-center/">Exon Center</a>
+            </span>
+            
+            <span>
+                <a href="/tags/intel-atom/">intel atom</a>
+            </span>
+            
+            <span>
+                <a href="/tags/linux/">linux</a>
+            </span>
+            
+            <span>
+                <a href="/tags/ml/">ml</a>
+            </span>
+            
+            <span>
+                <a href="/tags/numpy/">numpy</a>
+            </span>
+            
+            <span>
+                <a href="/tags/pandas/">pandas</a>
+            </span>
+            
+            <span>
+                <a href="/tags/php/">php</a>
+            </span>
+            
+            <span>
+                <a href="/tags/psb116a03/">PSB116A03</a>
+            </span>
+            
+            <span>
+                <a href="/tags/python/">python</a>
+            </span>
+            
+            <span>
+                <a href="/tags/rest-full-api/">REST FULL API</a>
+            </span>
+            
+            <span>
+                <a href="/tags/server/">server</a>
+            </span>
+            
+            <span>
+                <a href="/tags/tkinter/">tkinter</a>
+            </span>
+            
+            <span>
+                <a href="/tags/ubuntu/">ubuntu</a>
+            </span>
+            
+            <span>
+                <a href="/tags/uefi/">uefi</a>
+            </span>
+            
+            <span>
+                <a href="/tags/video/">video</a>
+            </span>
+            
+            <span>
+                <a href="/tags/vim/">vim</a>
+            </span>
+            
+            <span>
+                <a href="/tags/windows-11/">windows 11</a>
+            </span>
+            
+            <span>
+                <a href="/tags/windows-insiders/">Windows Insiders</a>
+            </span>
+            
+            <span>
+                <a href="/tags/%D0%B4%D0%B5%D1%86%D0%B5%D0%BD%D1%82%D1%80%D0%B0%D0%BB%D0%B8%D0%B7%D0%BE%D0%B2%D0%B0%D0%BD%D0%BD%D0%B0%D1%8F-%D0%B1%D0%B8%D1%80%D0%B6%D0%B0/">децентрализованная биржа</a>
+            </span>
+            
+            <span>
+                <a href="/tags/%D0%BF%D0%BE%D0%B4%D0%BA%D0%B0%D1%81%D1%82/">Подкаст</a>
+            </span>
+            
+            <span>
+                <a href="/tags/%D1%83%D1%81%D1%82%D0%B0%D0%BD%D0%BE%D0%B2%D0%BA%D0%B0-arch-linux/">установка arch linux</a>
+            </span>
+            
+        </div>
+    </div>
+    
+    
+    
+    
+  </div>
+</aside>
+    </main>
+
+    <style>
+    .social-links-header {
+    margin-top: 40px;
+    display: flex;
+    justify-content: center;
+    }
+    .social-links-header a {
+        font-size: 16px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: rgba(255, 255, 255, 0.1);
+         
+        line-height: 1;
+        margin-right: 8px;
+        border-radius: 50%;
+        width: 40px;
+        height: 40px;
+        text-decoration: none;
+    }
+    .social-links-header a:hover{
+        color: #cf8004;
+        text-decoration: none;
+    }
+</style>
+
+<footer>
+    <div class="social-links-header">
+        <a href="https://www.facebook.com/alexborschdeveloper" target="_blank" rel="noopener"><i class="fab fa-facebook"></i></a>
+        <a href="https://twitter.com/o_borshch" target="_blank" rel="noopener"><i class="fab fa-twitter"></i></a>
+        <a href="https://github.com/alexborsch" target="_blank" rel="noopener"><i class="fab fa-github"></i></a>
+        <a href="https://instagram.com/oleksandr_borsch" target="_blank" rel="noopener"><i class="fab fa-instagram"></i></a>
+        <a href="https://youtube.com/c/coderlog" target="_blank" rel="noopener"><i class="fab fa-youtube"></i></a>
+        
+    </div>
+    <div class="container-lg clearfix">    
+        <div class="col-12 footer">
+            
+            <span>CoderLog Projects | Copyright © All rights reserved. 2022
+                <a href=""></a>
+                
+                
+            </span>
+        </div>
+    </div>
+</footer>
+
+    
+<script defer src="https://cdn.jsdelivr.net/npm/medium-zoom@1.0.6/dist/medium-zoom.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/lazysizes@5.3.0/lazysizes.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/prismjs@1.23.0/components/prism-core.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/prismjs@1.23.0/plugins/autoloader/prism-autoloader.min.js"></script>
+
+
+
+<script defer src="/assets/js/fuji.min.js"></script>
+
+
+</body>
+
+</html>
